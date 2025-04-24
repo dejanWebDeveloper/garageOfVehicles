@@ -81,3 +81,56 @@ interface Vehicle
      */
     public function consumedFuel();
 }
+
+abstract class Vehicles
+{
+    protected $serialNumber;
+    protected $ratio;
+    protected $distance;
+    public function getSerialNumber()
+    {
+        return $this->serialNumber;
+    }
+    public function getRatio()
+    {
+        return $this->ratio;
+    }
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+    public function setSerialNumber($serialNumber)
+    {
+        if (empty(trim(($serialNumber)))) {
+            die("Serial number field can't be empty.");
+        }   
+        $this->serialNumber = $serialNumber;
+    }
+    public function setRatio(float $ratio)
+    {
+        if ($ratio < 0 || $ratio > 15) {
+            die("Ratio value is't valid.");
+        }
+        $this->ratio = $ratio;
+    }
+    public function setDistance($distance)
+    {
+        if ($distance < 0){
+            die("The distance field must have a positive value.");
+        }
+        $this->distance = $distance;
+    }
+    public function __construct(array $data)
+    {
+        if (isset($data["serialNumber"])) {
+            $this->setSerialNumber($data["serialNumber"]);
+        }
+        if (isset($data["ratio"])) {
+            $this->setRatio($data["ratio"]);
+        }
+        if (isset($data["distance"])) {
+            $this->setDistance($data["distance"]);
+        }
+    }
+}
+
