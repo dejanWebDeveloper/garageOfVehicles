@@ -228,3 +228,41 @@ class Bus extends Vehicles implements Vehicle, HasRoute
         return $consumedFuel;
     }
 }
+
+$garage01 = new Garage();
+$garage01->addVehicles(new Car([
+    "serialNumber" => "123456",
+    "ratio" => "5",
+    "distance" => "50"
+]))->addVehicles(new Bus([
+    "serialNumber" => "741852",
+    "ratio" => "7",
+    "distance" => "250",
+    "passengers" => "44",
+    "route" => "Beograd-Sombor"
+]))->addVehicles(new Bus([
+    "serialNumber" => "25452",
+    "ratio" => "8",
+    "distance" => "320",
+    "passengers" => "41",
+    "route" => "Beograd-Nis"
+]));
+
+$garage01->listVehicles();
+$garage01->fuelReport();
+
+$busStation01 = new BusStation();
+$busStation01->addBus(new Bus([
+    "serialNumber" => "25452",
+    "ratio" => "8",
+    "distance" => "320",
+    "passengers" => "41",
+    "route" => "Beograd-Nis"
+]))->addBus(new Bus([
+    "serialNumber" => "741852",
+    "ratio" => "7",
+    "distance" => "250",
+    "passengers" => "44",
+    "route" => "Beograd-Sombor"
+]));
+$busStation01->displayRoutes();
