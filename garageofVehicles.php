@@ -134,3 +134,15 @@ abstract class Vehicles
     }
 }
 
+class Car extends Vehicles implements Vehicle
+{
+    public function display()
+    {
+        echo "Car with serial number " . $this->getSerialNumber() . ", traveled " . $this->getDistance() . " km today. <br>";
+    }
+    public function consumedFuel()
+    {
+        $consumedFuel = ($this->getDistance() / 100) * $this->getRatio();
+        return $consumedFuel;
+    }
+}
