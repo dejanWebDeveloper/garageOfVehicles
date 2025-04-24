@@ -146,3 +146,37 @@ class Car extends Vehicles implements Vehicle
         return $consumedFuel;
     }
 }
+
+class Truck extends Vehicles implements Vehicle
+{
+    protected $cargo;
+
+    public function getCargo()
+    {
+        return $this->cargo;
+    }
+    public function setCargo($cargo)
+    {
+        if ($this->cargo > 15) {
+            die("Prekoracen maksimalni teret.");
+        }
+        $this->cargo = $cargo;
+    }
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+        if (isset($data["cargo"])) {
+            $this->setCargo($data["cargo"]);
+        }
+    }
+    public function display()
+    {
+        echo "Truck with serial number " . $this->getSerialNumber() . " transported " . $this->getCargo() . " tons of cargo today. <br>";
+    }
+    public function consumedFuel()
+    {
+        $newRatio = round($this->getCargo(), 2) + $this->getRatio();
+        $consumedFuel = ($this->getDistance() / 100) * $newRatio;
+        return $consumedFuel;
+    }
+}
