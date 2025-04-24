@@ -180,3 +180,51 @@ class Truck extends Vehicles implements Vehicle
         return $consumedFuel;
     }
 }
+
+class Bus extends Vehicles implements Vehicle, HasRoute
+{
+    protected $passengers;
+    protected $route;
+    public function getRoute()
+    {
+        return $this->route;
+    }
+    public function setRoute(string $route)
+    {
+        if (trim($this->route) === ""){
+            die("The route entry field must be filled in.");
+        }
+        $this->route = $route;
+    }
+    public function getPassengers()
+    {
+        return $this->passengers;
+    }
+    public function setPassengers($passengers)
+    {
+        if($passengers < 0 || $passengers > 80){
+            die("Passenger field is invalid.");
+        }
+        $this->passengers = $passengers;
+    }
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+        if (isset($data["passengers"])) {
+            $this->setPassengers($data["passengers"]);
+        }
+        if (isset($data["route"])) {
+            $this->setRoute($data["route"]);
+        }
+    }
+    public function display()
+    {
+        echo "Autobus, serijskog broja " . $this->getSerialNumber() . " danas je prevezao " . $this->getPassengers() . " putnika. <br>";
+    }
+    public function consumedFuel()
+    {
+        $newRatio = $this->getPassengers() + $this->getRatio();
+        $consumedFuel = ($this->getDistance() / 100) * $newRatio;
+        return $consumedFuel;
+    }
+}
